@@ -1,105 +1,122 @@
-# 🚢 Titanic Dataset — Data Science Project
-### Decodelabs Data Science Internship | Task Submission
+# 🛒 Retail Sales Analytics — Exploratory Data Analysis
+### Decodelabs Data Analytics Internship | Project 2 | Batch 2026
 
 ![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=flat&logo=python&logoColor=white)
 ![Pandas](https://img.shields.io/badge/Pandas-150458?style=flat&logo=pandas&logoColor=white)
-![Seaborn](https://img.shields.io/badge/Seaborn-4c72b0?style=flat)
 ![Matplotlib](https://img.shields.io/badge/Matplotlib-11557c?style=flat)
-![Status](https://img.shields.io/badge/Status-Completed-4a7c59?style=flat)
+![Seaborn](https://img.shields.io/badge/Seaborn-4c72b0?style=flat)
+![Domain](https://img.shields.io/badge/Domain-Business%20Analytics-00d4ff?style=flat)
+![Status](https://img.shields.io/badge/Status-Completed-00ff88?style=flat)
 
 ---
 
-## 📋 Overview
+## 🎯 Problem Statement
 
-This project was completed as part of the **Decodelabs Data Science Internship**. It covers three core tasks of the data science pipeline — from raw data collection to exploratory analysis — using the classic **Titanic dataset**.
+> *"What are the key revenue drivers, seasonal patterns, and customer behaviour signals hidden inside a year of retail transactions?"*
 
-The Titanic dataset contains information about 891 passengers aboard the RMS Titanic, which sank on April 15, 1912. The goal is to explore the data and uncover patterns related to passenger survival.
+This project applies the full EDA pipeline to a **Retail Sales Transactions dataset** covering 1,000+ transactions across 2023. The goal is to move from raw numbers to actionable business intelligence — identifying what's driving revenue, when demand peaks, and where the business should focus next.
 
 ---
 
-## ✅ Tasks Completed
+## 📋 Project Overview
 
-| # | Task | Description |
-|---|------|-------------|
-| 1 | **Data Collection & Dataset Understanding** | Loaded dataset, identified all columns, data types, size, and missing values |
-| 2 | **Data Cleaning & Preprocessing** | Handled missing values, removed duplicates, dropped irrelevant columns, encoded categoricals |
-| 3 | **Exploratory Data Analysis (EDA)** | Calculated statistics, identified trends, detected outliers, summarized key findings |
+**Project 2** of the Decodelabs Data Analytics Internship focuses on the **discovery phase** of data analysis. Before building dashboards or predictive models, a data analyst must master the art of interrogating data to find hidden patterns, trends, and outliers.
+
+This project follows the **IPO Framework**:
+- **Input** → Raw retail transaction data (CSV)
+- **Process** → Statistical analysis, outlier detection, correlation mapping
+- **Output** → Actionable business insights + 6 professional visualizations
+
+---
+
+## ✅ Sections Completed
+
+| # | Section | Description |
+|---|---------|-------------|
+| 1 | **Data Loading & Understanding** | Loaded dataset, profiled all 11 columns, identified missing values and data types |
+| 2 | **Data Cleaning & Preprocessing** | Removed 12 duplicates, imputed missing values, extracted date features |
+| 3 | **Exploratory Data Analysis** | Descriptive stats, revenue breakdown, seasonal trends, outlier detection (IQR), correlation analysis |
+| 4 | **Visualizations** | 6 business-grade charts with actionable titles |
 
 ---
 
 ## 📁 Project Structure
 
 ```
-decodelabs-titanic-project/
+decodelabs_tasks2/
 │
-├── decodelabs_project_ali.py   # Main project script (all 3 tasks)
-├── eda_visualizations.png      # EDA charts output
-└── README.md                   # This file
+├── eda_retail_sales.py        # Main EDA script (all sections)
+├── retail_sales_raw.csv       # Raw dataset (1,012 rows × 11 columns)
+├── retail_eda_charts.png      # EDA visualization output (6 charts)
+└── README.md                  # This file
 ```
 
 ---
 
 ## 🗂️ Dataset
 
-- **Name:** Titanic Passenger Dataset
-- **Source:** Seaborn built-in (`sns.load_dataset('titanic')`) — original Kaggle data
-- **Shape:** 891 rows × 15 columns
-- **Target column:** `survived` (0 = No, 1 = Yes)
+- **Name:** Retail Sales Transactions 2023
+- **Domain:** Business / Sales Analytics
+- **Shape:** 1,012 rows × 11 columns (including 12 duplicate rows)
+- **Time Range:** January 1 – December 31, 2023
 
-### Key Columns
+### Columns
 
 | Column | Type | Description |
 |--------|------|-------------|
-| `survived` | int | Survival outcome (target) |
-| `pclass` | int | Passenger class (1 = 1st, 2 = 2nd, 3 = 3rd) |
-| `sex` | str | Gender |
-| `age` | float | Age in years |
-| `sibsp` | int | # of siblings/spouses aboard |
-| `parch` | int | # of parents/children aboard |
-| `fare` | float | Ticket fare (£) |
-| `embarked` | str | Port of embarkation (S / C / Q) |
+| `transaction_id` | string | Unique transaction ID |
+| `date` | datetime | Transaction date |
+| `customer_age` | int | Customer age (years) |
+| `gender` | string | Customer gender |
+| `region` | string | Sales region (North/South/East/West) |
+| `product_category` | string | Product type sold |
+| `quantity` | int | Units sold |
+| `unit_price` | int | Price per unit (₹) |
+| `total_sales` | float | Transaction value (₹) — target variable |
+| `payment_method` | string | Payment mode |
+| `customer_rating` | int | Customer satisfaction (1–5) |
 
 ---
 
-## 🧹 Task 2: Cleaning Steps
+## 🧹 Cleaning Steps
 
-1. **Removed duplicates** — 107 duplicate rows dropped
-2. **Filled missing `age`** — replaced with median (28.0 yrs), robust to skew
-3. **Filled missing `embarked`** — replaced with mode (`'S'`)
-4. **Dropped `deck`** — over 77% values missing, not recoverable
-5. **Dropped redundant columns** — `who`, `adult_male`, `embark_town`, `alive`, `alone`, `class`
-6. **Encoded categoricals** — `sex` → (male=0, female=1), `embarked` → (S=0, C=1, Q=2)
+1. **Removed 12 duplicate rows** — brought dataset to 1,000 clean records
+2. **Imputed missing `customer_age`** — filled 40 nulls with column median (robust to skew)
+3. **Imputed missing `region`** — filled 20 nulls with mode (most frequent region)
+4. **Extracted date features** — added `month`, `quarter`, `month_name` for trend analysis
+5. **Corrected data types** — age and rating cast to `int`
 
-**Result:** 784 rows × 9 clean columns, zero missing values
+**Result:** 1,000 rows × 14 columns, **zero missing values**
 
 ---
 
-## 📊 Task 3: Key Findings
+## 📊 Key Business Findings
 
-> **Overall survival rate was only ~38–41% — the majority did not survive.**
+> *"Translating data into business decisions — the 'So What?' test."*
 
-| Finding | Detail |
-|---------|--------|
-| 👩 Gender | Females survived at **74.2%** vs males at **18.9%** — "women and children first" was enforced |
-| 🎫 Class | 1st class: **63%** survival &nbsp;|&nbsp; 2nd class: **47%** &nbsp;|&nbsp; 3rd class: **24%** |
-| 🎂 Age | Average age ~30 yrs. Younger children had relatively higher survival rates |
-| 💰 Fare | Range: £0 – £512. **102 outliers** detected via IQR method. Higher fare correlated with survival |
-| 🚢 Port | Southampton accounted for ~72% of passengers (most common embarkation point) |
+| # | Finding | Business Diagnosis |
+|---|---------|-------------------|
+| 🔥 | **Q4 Revenue Surge (+40%)** | Oct–Dec demand spikes sharply — increase inventory & marketing budget before Q4 |
+| 📱 | **Electronics = Highest Revenue** | Highest revenue despite only 25% of transactions — prioritize electronics promotions |
+| 💳 | **UPI + Credit Card = ~65% of payments** | Digital payments dominant — optimize checkout for digital-first experience |
+| 🌟 | **15 High-Value Outliers (₹12K–₹20K)** | These are SIGNALS — likely bulk/B2B buyers — launch a VIP or B2B loyalty program |
+| ⭐ | **Average Rating: 4.1 / 5.0** | Healthy satisfaction — investigate the 15% low-rated (1–2★) transactions for issues |
+| 🗺️ | **Regional Revenue Gap Identified** | Reallocate sales resources from bottom to top-performing regions |
 
 ---
 
 ## 📈 Visualizations
 
-The script generates a 6-panel EDA chart saved as `eda_visualizations.png`:
+Six business-grade charts saved as `retail_eda_charts.png`:
 
-1. Survival Count (bar chart)
-2. Survival Rate by Gender
-3. Survival Rate by Passenger Class
-4. Age Distribution by Survival (overlapping histogram)
-5. Fare Distribution by Class (box plot)
-6. Embarkation Port Distribution (pie chart)
+1. **Monthly Revenue Trend** — Q4 surge clearly visible
+2. **Revenue by Product Category** — Electronics leads
+3. **Revenue by Region** — Regional performance comparison
+4. **Payment Method Distribution** — Digital dominance
+5. **Customer Rating Distribution** — Satisfaction profile
+6. **Sales Distribution by Quarter (Box Plot)** — Q4 highest median + outlier visibility
 
-![EDA Visualizations](eda_visualizations.png)
+![EDA Charts](retail_eda_charts.png)
 
 ---
 
@@ -107,8 +124,8 @@ The script generates a 6-panel EDA chart saved as `eda_visualizations.png`:
 
 **1. Clone the repo**
 ```bash
-git clone https://github.com/your-username/decodelabs-titanic-project.git
-cd decodelabs-titanic-project
+git clone https://github.com/aliausaf777/decodelabs_tasks2.git
+cd decodelabs_tasks2
 ```
 
 **2. Install dependencies**
@@ -116,22 +133,22 @@ cd decodelabs-titanic-project
 pip install pandas numpy matplotlib seaborn
 ```
 
-**3. Run the script**
+**3. Run the EDA script**
 ```bash
-python decodelabs_project_ali.py
+python eda_retail_sales.py
 ```
 
-The script will print all task outputs to the console and save `eda_visualizations.png` in the same directory.
+The script prints all analysis to the console and saves `retail_eda_charts.png` in the same directory.
 
 ---
 
 ## 🛠️ Tech Stack
 
 - **Python 3.8+**
-- **Pandas** — data manipulation and cleaning
-- **NumPy** — numerical operations
-- **Seaborn** — dataset loading and plot styling
-- **Matplotlib** — custom visualizations
+- **Pandas** — data manipulation, groupby aggregations, date parsing
+- **NumPy** — numerical operations, IQR outlier detection
+- **Matplotlib** — custom dark-theme visualizations
+- **Seaborn** — statistical plotting
 
 ---
 
@@ -146,5 +163,5 @@ Tech Lead, DataWizards Community
 ## 🏢 Internship
 
 **Organization:** [Decodelabs](https://www.decodelabs.tech)
-**Program:** Data Science Internship — Task Project
-**Tasks Submitted:** Task 1 · Task 2 · Task 3
+**Program:** Data Analytics Internship — Project 2 (EDA)
+**Batch:** 2026
